@@ -50,26 +50,26 @@ namespace BookManagementApi.Services
 
         public async Task<BookResponseDto> CreateBookAsync(CreateBookDto createBookDto)
         {
-            // DTO se data lekar Book entity ka naya object banata hai
             var book = new Book
             {
-                Title = createBookDto.Title, // DTO ka Title Book ke Title mein copy karta hai
-                Author = createBookDto.Author, // DTO ka Author Book ke Author mein copy karta hai
-                PublishedYear = createBookDto.PublishedYear // DTO ka PublishedYear Book mein copy karta hai
+                Title = createBookDto.Title, 
+                Author = createBookDto.Author, 
+                PublishedYear = createBookDto.PublishedYear 
+
             };
 
-            await _context.Books.AddAsync(book); // Book ko database mein add karne ke liye mark karta hai
-            await _context.SaveChangesAsync(); // Changes ko actual database mein save karta hai
-            var bookResponse = new BookResponseDto
+            await _context.Books.AddAsync(book);
+            await _context.SaveChangesAsync(); 
+           var bookResponse = new BookResponseDto
             {
-                Id = book.Id, // Book ka Id BookResponseDto mein copy karta hai
-                Title = book.Title, // Book ka Title BookResponseDto mein copy karta hai
-                Author = book.Author, // Book ka Author BookResponseDto mein copy karta hai
-                PublishedYear = book.PublishedYear // Book ka PublishedYear BookResponseDto mein copy karta hai
+                Id = book.Id,
+                Title = book.Title, 
+                Author = book.Author, 
+                PublishedYear = book.PublishedYear
             };
 
 
-            return bookResponse; // 201 Created response ke saath newly created Book return karta hai		}
+            return bookResponse;
         }
 
         public async Task<bool> UpdateBookAsync(int id, UpdateBookDto updateBookDto)
@@ -92,16 +92,16 @@ namespace BookManagementApi.Services
 
         public async Task<bool> DeleteBookAsync(int id)
         {
-            var existing = await _context.Books.FindAsync(id);  // id find kro
-            if (existing == null)      // agr id nhi mili to 404 return kro
+            var existing = await _context.Books.FindAsync(id);  
+            if (existing == null)      
             {
                 return false;
             }
 
-            _context.Books.Remove(existing); // id wala record delete kro
+            _context.Books.Remove(existing); 
 
-            await _context.SaveChangesAsync(); // changes save kro db me
-            return true;  // delete hone ke baad deleted record return kro		
+            await _context.SaveChangesAsync(); 
+            return true;  
         }
 
 

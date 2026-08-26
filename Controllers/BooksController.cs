@@ -1,8 +1,4 @@
-﻿using BookManagementApi.Data;
-using BookManagementApi.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using BookManagementApi.DTOs;
 using BookManagementApi.Services;
 
@@ -12,7 +8,6 @@ namespace BookManagementApi.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        //private readonly AppDbContext _context;
         private readonly IBookService _bookService;
 
         public BooksController(IBookService bookService)
@@ -20,12 +15,11 @@ namespace BookManagementApi.Controllers
             _bookService = bookService;
         }
 
-        [HttpPost] // POST request ko handle karta hai
-        public async Task<IActionResult> CreateBook(CreateBookDto bookdto) // Request ka data CreateBookDto object mein receive karta hai
+        [HttpPost]
+        public async Task<IActionResult> CreateBook(CreateBookDto bookdto)
         {
             var result = await _bookService.CreateBookAsync(bookdto);
-            return Created("", result); // 200 OK response return karta hai, jismein result object hota hai
-
+            return Created("", result);
 
         }
 
@@ -71,8 +65,6 @@ namespace BookManagementApi.Controllers
             return NoContent();
 
         }
-
-
 
     }
 
